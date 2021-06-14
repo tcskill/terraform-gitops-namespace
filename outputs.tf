@@ -1,5 +1,8 @@
-#output "myoutput" {
-#  description = "Description of my output"
-#  value       = "value"
-#  depends_on  = [<some resource>]
-#}
+output "name" {
+  value       = var.name
+  description = "Namespace name"
+  depends_on  = [
+    null_resource.setup_argocd,
+    null_resource.setup_namespace
+  ]
+}
