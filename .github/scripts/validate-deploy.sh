@@ -13,11 +13,20 @@ find . -name "*"
 
 NAMESPACE="gitops-namespace"
 
+if [[ ! -f "argocd/1-infrastructure/active/namespaces.yaml" ]]; then
+  echo "Argocd config missing: argocd/1-infrastructure/active/namespaces.yaml"
+  exit 1
+fi
+
+echo "Printing argocd/1-infrastructure/active/namespaces.yaml"
+cat "argocd/1-infrastructure/active/namespaces.yaml"
+
 if [[ ! -f "argocd/1-infrastructure/active/namespace-${NAMESPACE}.yaml" ]]; then
   echo "Argocd config missing: argocd/1-infrastructure/active/namespace-${NAMESPACE}.yaml"
   exit 1
 fi
 
+echo "Printing argocd/1-infrastructure/active/namespace-${NAMESPACE}.yaml"
 cat "argocd/1-infrastructure/active/namespace-${NAMESPACE}.yaml"
 
 if [[ ! -f "payload/1-infrastructure/namespaces/${NAMESPACE}.yaml" ]]; then
@@ -25,7 +34,16 @@ if [[ ! -f "payload/1-infrastructure/namespaces/${NAMESPACE}.yaml" ]]; then
   exit 1
 fi
 
+echo "Printing payload/1-infrastructure/namespaces/${NAMESPACE}.yaml"
 cat "payload/1-infrastructure/namespaces/${NAMESPACE}.yaml"
+
+if [[ ! -f "payload/1-infrastructure/namespace/${NAMESPACE}/.gitkeep" ]]; then
+  echo "Payload directory missing: payload/1-infrastructure/namespace/${NAMESPACE}/.gitkeep"
+  exit 1
+fi
+
+echo "Printing payload/1-infrastructure/namespace/${NAMESPACE}/.gitkeep"
+cat "payload/1-infrastructure/namespace/${NAMESPACE}/.gitkeep"
 
 cd ..
 rm -rf .testrepo
